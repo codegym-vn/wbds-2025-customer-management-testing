@@ -19,6 +19,7 @@ targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
 }
 
 repositories {
@@ -77,11 +78,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
-    testLogging {
-        events "PASSED", "STARTED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
-    }
-    afterTest { desc, result ->
-        println "Testing ${desc.name} [${desc.className}]: ${result.resultType}"
-    }
 }

@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ModelAndView showList(Optional<String> s, Pageable pageInfo) {
+    public ModelAndView showList(@RequestParam(name = "s", required = false) Optional<String> s, Pageable pageInfo) {
         ModelAndView modelAndView = new ModelAndView("/customers/list");
         Page<Customer> customers = s.isPresent() ? search(s.get(), pageInfo) : getPage(pageInfo);
         modelAndView.addObject("keyword", s.orElse(null));
@@ -46,7 +46,7 @@ public class CustomerController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView showInformation(@PathVariable Long id) {
+    public ModelAndView showInformation(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/customers/info");
         Optional<Customer> customer = customerService.findOne(id);
         modelAndView.addObject("customer", customer.get());
